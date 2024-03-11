@@ -39,6 +39,24 @@ export class UserService {
         }
     };
 
+    getByEmail = async (email: string): Promise<APIResponse<UserEntity | null, ErrorTypes>> => {
+        try {
+            if (!email) {
+                return response.error('O email é obrigatório', 400);
+            }
+
+            const user = await userRepository.getByEmail(email);
+
+            if (!user) {
+                return response.error(`Usuário de email ${email} não encontrado`, 404);
+            }
+
+            return response.success(user, 200);
+        } catch (error) {
+            return response.error(error, 500);
+        }
+    };
+
     update = async (id: number, name: string, email: string): Promise<APIResponse<string | null, ErrorTypes>> => {
         try {
             if (!id) {

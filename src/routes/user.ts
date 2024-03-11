@@ -7,6 +7,7 @@ const userController = new UserController();
 
 router.get('/all', userController.getAll);
 router.get('/:id', userController.getById);
+router.get('/:email', userController.getByEmail);
 router.put('/update/:id', userController.update);
 router.delete('/delete/:id', userController.exclude);
 
