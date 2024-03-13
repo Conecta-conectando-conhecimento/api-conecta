@@ -8,19 +8,35 @@ export class UserEntity {
         id: number;
 
     @Column()
-        name: string;
-
-    @Column()
         email: string;
 
     @Column()
-        password: string;
+        cpf: string;
 
     @Column()
-        profile_picture: string;
+        nome_completo: string;
 
     @Column()
-        role_id: number;
+        nome_usuario: string;
+
+    @Column()
+    data_de_nascimento: Date;
+
+    @Column()
+    senha: string;
+
+    @Column()
+    campus: string;
+
+    @Column()
+    sobre: string;
+
+    @Column()
+    linkedin: string;
+
+    @Column()
+    instagram: string;
+
 
     @ManyToOne(() => RoleEntity)
     @JoinColumn({ name: 'role_id' })
