@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryColumn, Timestamp, UpdateDateColumn } from 'typeorm';
 
 @Entity('role')
 export class RoleEntity {
@@ -9,10 +9,7 @@ export class RoleEntity {
         type: string;
 
     @CreateDateColumn()
-        created_at: Date;
-
-    @UpdateDateColumn()
-        updated_at!: Date;
+        created_at: Timestamp;
 
     @DeleteDateColumn()
         deleted_at!: Date;

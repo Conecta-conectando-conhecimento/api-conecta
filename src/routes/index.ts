@@ -14,7 +14,7 @@ const middleware = new Middleware();
 router.use('/auth', AuthRouter);
 router.use('/book', middleware.auth, BookRouter);
 router.use('/author', middleware.auth, AuthorRouter);
-router.use('/user', middleware.auth, UserRouter);
+router.use('/user', UserRouter);
 router.use('/genre', middleware.auth, GenreRouter);
 
 export default router;

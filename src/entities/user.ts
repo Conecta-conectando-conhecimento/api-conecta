@@ -1,53 +1,45 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, Timestamp, UpdateDateColumn } from 'typeorm';
 
 import { RoleEntity } from './role';
 
-@Entity('user')
+@Entity('Usuario')
 export class UserEntity {
     @PrimaryColumn()
-        id: number;
+    id: number;
 
     @Column()
-        email: string;
+    email: string;
 
     @Column()
-        cpf: string;
+    cpf: string;
 
     @Column()
-        nome_completo: string;
+    name: string;
 
     @Column()
-        nome_usuario: string;
+    name_user: string;
 
     @Column()
-    data_de_nascimento: Date;
+    birthday: Date;
 
     @Column()
-    senha: string;
+    password: string;
 
     @Column()
-    campus: string;
+    campus!: string;
 
     @Column()
-    sobre: string;
+    sobre!: string;
 
     @Column()
-    linkedin: string;
+    linkedin!: string;
 
     @Column()
-    instagram: string;
-
-
-    @ManyToOne(() => RoleEntity)
-    @JoinColumn({ name: 'role_id' })
-        role: RoleEntity;
+    instagram!: string;
 
     @CreateDateColumn()
-        created_at: Date;
-
-    @UpdateDateColumn()
-        updated_at!: Date;
+        data_criacao: Timestamp;
 
     @DeleteDateColumn()
-        deleted_at!: Date;
+        data_inativacao!: Date;
 }

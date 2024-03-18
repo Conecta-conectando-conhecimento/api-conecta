@@ -1,15 +1,18 @@
 export type CreateUserDTO = {
-    name: string;
     email: string;
+    name: string;
+    name_user:string;
+    birthday:Date;
     password: string;
-    profile_picture?: string;
+    cpf: string;
     role_id: number;
 }
 
 export type UpdateUserDTO = {
-    name?: string;
     email?: string;
-    profile_picture?: string;
+    name?: string;
+    name_user?:string;
+    birthday?:Date;
     role_id?: number;
 }
 

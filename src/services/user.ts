@@ -57,7 +57,9 @@ export class UserService {
         }
     };
 
-    update = async (id: number, name: string, email: string): Promise<APIResponse<string | null, ErrorTypes>> => {
+
+
+    update = async (id: number, email: string, name: string, name_user: string, birthday: Date): Promise<APIResponse<string | null, ErrorTypes>> => {
         try {
             if (!id) {
                 return response.error('O id do usuário é obrigatório', 400);
@@ -69,8 +71,8 @@ export class UserService {
                 return response.error(`Usuário de id ${id} não encontrado`, 404);
             }
         
-            await userRepository.update(id, { name, email });
-
+            await userRepository.update(id, { name, email , name_user, birthday});
+ 
             return response.success('Usuário foi atualizado com sucesso', 200);
         } catch (error) {
             return response.error(error, 500);
