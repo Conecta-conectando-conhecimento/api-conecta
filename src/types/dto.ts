@@ -1,10 +1,10 @@
 export type CreateUserDTO = {
     email: string;
+    cpf: string;
     name: string;
     name_user:string;
     birthday:Date;
     password: string;
-    cpf: string;
     role_id: number;
 }
 
