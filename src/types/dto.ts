@@ -49,3 +49,21 @@ export type CreateGenreDTO = {
 export type UpdateGenreDTO = {
     name: string;
 }
+
+// Conecta
+
+export type CreateProjectDTO = {
+    title: string;
+    about: string;
+    max_participants: number;
+    interest_area: string;
+    activities?: string | null;
+}
+
+export type UpdateProjectDTO = {
+    title?: string;
+    about?: string;
+    max_participants?: number;
+    interest_area?: string;
+    activities?: string | null;
+}
