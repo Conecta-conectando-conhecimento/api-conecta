@@ -1,11 +1,11 @@
 {
-  "name": "api-book-club",
+  "name": "api-conecta",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
+    "start": "node src/server.ts",
     "dev": "ts-node-dev --transpile-only src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "build": "tsc --build"
@@ -19,7 +19,7 @@
     "express": "^4.18.2",
     "global": "^4.4.0",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.11.3",
+    "pg": "^8.11.4",
     "reflect-metadata": "^0.2.1",
     "typeorm": "^0.3.20",
     "yarn": "^1.22.22"
@@ -28,6 +28,8 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.18",
     "@types/jsonwebtoken": "^9.0.5",
+    "@types/mime": "^4.0.0",
+    "@types/node": "^20.12.2",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
     "eslint": "^8.48.0",
