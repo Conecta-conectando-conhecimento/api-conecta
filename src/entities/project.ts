@@ -2,12 +2,12 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    PrimaryGeneratedColumn,
+    PrimaryColumn,
 } from 'typeorm';
 
 @Entity('Project')
 export class ProjectEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id: number;
 
     @Column({ type: 'text' })
