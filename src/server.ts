@@ -18,7 +18,7 @@ app.use(router);
 
 app.get('/', (req, res) => {
     res.json({
-        message: 'API Book Club',
+        message: 'API Conecta',
         time: new Date().toString(),
         path: __dirname,
     });
