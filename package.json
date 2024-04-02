@@ -1,5 +1,5 @@
 {
-  "name": "api-book-club",
+  "name": "api-conecta",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,8 @@
     "start": "node src/server.js",
     "dev": "ts-node-dev --transpile-only src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "lint": "eslint \"./src/**/*.{ts,js}\" --quiet"
   },
   "keywords": [],
   "author": "",
@@ -34,5 +35,10 @@
     "nodemon": "^3.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
+  },
+  "git": {
+    "scripts": {
+      "pre-commit": "yarn lint"
+    }
   }
 }
