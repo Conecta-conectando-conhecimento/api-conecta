@@ -2,16 +2,24 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import { DataSource } from 'typeorm';
 
+const isProd = process.env.NODE_ENV === 'production';
+
+const host = isProd ? process.env.PROD_POSTGRES_HOST : process.env.DEV_POSTGRES_HOST;
+const port = isProd ? Number(process.env.PROD_POSTGRES_PORT) : Number(process.env.DEV_POSTGRES_PORT);
+const username = isProd ? process.env.PROD_POSTGRES_USER : process.env.DEV_POSTGRES_USER;
+const password = isProd ? process.env.PROD_POSTGRES_PASSWORD : process.env.DEV_POSTGRES_PASSWORD;
+const database = isProd ? process.env.PROD_POSTGRES_DB : process.env.DEV_POSTGRES_DB;
+const entities = isProd ? [process.env.PROD_POSTGRES_ENTITIES] : [process.env.DEV_POSTGRES_ENTITIES];
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    host: process.env.POSTGRES_HOST || 'localhost',
-    port: Number(process.env.POSTGRES_PORT) || 5432,
-    username: process.env.POSTGRES_USER || 'postgres',
-    password: process.env.POSTGRES_PASSWORD || 'postgres',
-    database: process.env.POSTGRES_DB || 'postgres',
+    host,
+    port,
+    username,
+    password,
+    database,
     synchronize: false,
-    entities: [process.env.TYPEORM_ENTITIES],
+    entities,
 });
 
 AppDataSource.initialize()

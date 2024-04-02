@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToO
 
 import { RoleEntity } from './role';
 
-@Entity('Usuario')
+@Entity('User')
 export class UserEntity {
     @PrimaryColumn()
     id: number;
@@ -17,7 +17,7 @@ export class UserEntity {
     name: string;
 
     @Column()
-    name_user: string;
+    user_name: string;
 
     @Column()
     birthday: Date;
@@ -38,8 +38,8 @@ export class UserEntity {
     instagram!: string;
 
     @CreateDateColumn()
-        data_criacao: Timestamp;
+        created_date: Timestamp;
 
     @DeleteDateColumn()
-        data_inativacao!: Date;
+        deactivation_date!: Date;
 }

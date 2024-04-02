@@ -52,7 +52,7 @@ export class AuthService {
         }
     };
 
-    register = async (email: string, cpf: string, name: string, name_user: string, birthday: Date, password: string): Promise<APIResponse<string, ErrorTypes>> => {
+    register = async (email: string, cpf: string, name: string, user_name: string, birthday: Date, password: string): Promise<APIResponse<string, ErrorTypes>> => {
         try {
             if (!name || !email || !password) {
                 return response.error('O nome, o email e a senha são obrigatórios', 400);
@@ -69,7 +69,7 @@ export class AuthService {
 
             const roleIdDefault = 2;
 
-            await userRepository.create({email, cpf, name, name_user, birthday, password: hashedPassword, role_id: roleIdDefault});
+            await userRepository.create({email, cpf, name, user_name, birthday, password: hashedPassword, role_id: roleIdDefault});
 
             return response.success('Usuário criado com sucesso', 201);
         } catch (error) {
