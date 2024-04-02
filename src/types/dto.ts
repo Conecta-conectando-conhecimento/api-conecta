@@ -16,36 +16,19 @@ export type UpdateUserDTO = {
     role_id?: number;
 }
 
-export type CreateBookDTO = {
+export type CreateProjectDTO = {
     title: string;
-    synopsis: string;
-    url_image: string;
-    genre_id: number;
-    author_id: number;
+    about: string;
+    max_participants: number;
+    interest_area: string;
+    activities?: string | null;
 }
 
-export type UpdateBookDTO = {
-    title: string;
-    synopsis: string;
-    url_image: string;
-    genre_id: number;
-    author_id: number;
-}
 
-export type CreateAuthorDTO = {
-    name: string;
-    description?: string;
-}
-
-export type UpdateAuthorDTO = {
-    name: string;
-    description?: string;
-}
-
-export type CreateGenreDTO = {
-    name: string;
-}
-
-export type UpdateGenreDTO = {
-    name: string;
+export type UpdateProjectDTO = {
+    title?: string;
+    about?: string;
+    max_participants?: number;
+    interest_area?: string;
+    activities?: string | null;
 }
