@@ -10,7 +10,7 @@ const router = Router();
 const middleware = new Middleware();
 
 router.use('/auth', AuthRouter);
-router.use('/user', middleware.auth, UserRouter);
+router.use('/user', UserRouter);
 router.use('/project', ProjectRouter);
 
 export default router;
