@@ -1,8 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryColumn, Timestamp } from 'typeorm';
 
-import { ProjectEntity } from './project';
-
-
 @Entity('User')
 export class UserEntity {
     @PrimaryColumn()
@@ -38,10 +35,10 @@ export class UserEntity {
     @Column()
         instagram!: string;
     
-    @CreateDateColumn()
-        created_date: Timestamp;
+    @CreateDateColumn( {type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP'} )
+        created_date: Date;
 
-    @DeleteDateColumn()
+    @DeleteDateColumn( {type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP'} )
         deactivation_date!: Date;
 
 }

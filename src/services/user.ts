@@ -38,7 +38,7 @@ export class UserService {
             return response.error(error, 500);
         }
     };
-
+    
     getByEmail = async (email: string): Promise<APIResponse<UserEntity | null, ErrorTypes>> => {
         try {
             if (!email) {

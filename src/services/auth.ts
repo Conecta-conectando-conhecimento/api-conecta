@@ -54,8 +54,17 @@ export class AuthService {
 
     register = async (email: string, cpf: string, name: string, user_name: string, birthday: Date, password: string): Promise<APIResponse<string, ErrorTypes>> => {
         try {
-            if (!name || !email || !password) {
-                return response.error('O nome, o email e a senha são obrigatórios', 400);
+            if (!name || !email || !password || !cpf) {
+                return response.error('O nome, o email, o cpf e a senha são obrigatórios', 400);
+            }
+
+            if (cpf.length !== 11) {
+                return response.error('CPF deve ter exatamente 11 caracteres', 400);
+            }
+
+            const checkCpfExist = await userRepository.getByCPF(cpf);
+            if (checkCpfExist) {
+                return response.error('CPF já cadastrado', 400);
             }
 
             const checkUserExist = await userRepository.getByEmail(email);

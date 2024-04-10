@@ -23,6 +23,10 @@ export class UserRepository {
         return await userRepository.findOneBy({ email });
     };
 
+    getByCPF = async (cpf: string): Promise<UserEntity> => {
+        return await userRepository.findOneBy({ cpf });
+    }
+
     create = async (createUserDTO: CreateUserDTO): Promise<void> => {
         await userRepository.insert(createUserDTO);
     };

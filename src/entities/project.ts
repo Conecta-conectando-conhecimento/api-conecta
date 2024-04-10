@@ -2,29 +2,39 @@ import {
     Column,
     CreateDateColumn,
     Entity,
+    JoinColumn,
+    ManyToOne,
     PrimaryColumn,
 } from 'typeorm';
+import { UserEntity } from './user';
 
 @Entity('Project')
 export class ProjectEntity {
     @PrimaryColumn()
-    id: number;
+        id: number;
 
-    @Column({ type: 'text' })
-    title: string;
+    @Column()
+        title: string;
 
-    @Column({ type: 'text' })
-    about: string;
+    @Column()
+        about: string;
 
-    @Column({ type: 'bigint' })
-    max_participants: number;
+    @Column()
+        max_participants: number;
 
-    @Column({ type: 'text' })
-    interest_area: string;
+    @Column()
+        interest_area: string;
 
-    @Column({ type: 'text', nullable: true })
-    activities: string | null;
+    @Column()
+        activities!: string;
 
     @CreateDateColumn({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
-    created_at: Date;
+        created_at: Date;
+
+    @Column()
+      user_id: number;
+    
+    @ManyToOne(() => UserEntity)
+    @JoinColumn({ name: 'user_id' })
+    user: UserEntity;
 }
