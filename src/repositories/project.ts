@@ -6,11 +6,11 @@ const projectRepository = AppDataSource.getRepository(ProjectEntity);
 
 export class ProjectRepository {
     getAll = async (page?: number, limit?: number): Promise<ProjectEntity[]> => {
-        const skipNumber = page || 1;
+        const skipNumber = page ? (page - 1) * (limit || 10) : 0;
         const takeNumber = limit || 10;
-
+    
         return await projectRepository.find({
-            skip: (skipNumber - 1) * takeNumber,
+            skip: skipNumber,
             take: takeNumber,
         });
     };
