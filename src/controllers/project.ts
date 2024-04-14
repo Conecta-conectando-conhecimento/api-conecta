@@ -4,7 +4,8 @@ const projectService = new ProjectService();
 
 export class ProjectController {
     async getAll(req, res) {
-        const { codehttp, ...rest } = await projectService.getAll();
+        const { page, limit } = req.query; // Extrai os parâmetros de query da requisição
+        const { codehttp, ...rest } = await projectService.getAll(page, limit); // Passa os parâmetros para a função getAll
         return res.status(codehttp).json(rest);
     }
 

@@ -7,16 +7,20 @@ const response = new ResponseOn();
 const projectRepository = new ProjectRepository();
 
 export class ProjectService {
-    getAll = async (): Promise<APIResponse<ProjectEntity[] | string, ErrorTypes>> => {
+    getAll = async (page?: number | string, limit?: number | string): Promise<APIResponse<ProjectEntity[] | string, ErrorTypes>> => {
         try {
-            const projects = await projectRepository.getAll();
-
+            // Converte os parâmetros de string para número, se fornecidos
+            const pageNumber = page ? parseInt(page.toString(), 10) : undefined;
+            const limitNumber = limit ? parseInt(limit.toString(), 10) : undefined;
+    
+            const projects = await projectRepository.getAll(pageNumber, limitNumber);
+    
             if (projects.length === 0 || !projects) {
                 return response.error('Nenhum projeto encontrado', 404);
             }
-
+    
             return response.success(projects, 200);
-
+    
         } catch (error) {
             return response.error(error, 500);
         }
