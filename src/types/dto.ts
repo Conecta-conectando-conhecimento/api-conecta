@@ -34,3 +34,9 @@ export type UpdateProjectDTO = {
     interest_area?: string;
     activities?: string | null;
 }
+
+export type CreateFavoriteDTO = {
+    project_id: number;
+    user_id: number;
+}
+
