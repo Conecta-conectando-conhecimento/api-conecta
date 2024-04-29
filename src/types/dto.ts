@@ -40,3 +40,13 @@ export type CreateFavoriteDTO = {
     user_id: number;
 }
 
+export class CreateParticipantDTO {
+    project_id: number;
+    user_id: number;
+}
+
+export class UpdateParticipantDTO {
+    project_id?: number;
+    user_id?: number;
+}
+
