@@ -18,7 +18,7 @@ export class ProjectEntity {
 
     @Column()
         about: string;
-        
+
     @Column()
         introduction: string;
 
@@ -40,4 +40,7 @@ export class ProjectEntity {
     @ManyToOne(() => UserEntity)
     @JoinColumn({ name: 'user_id' })
     user: UserEntity;
+
+    @Column()
+        status: string;
 }
