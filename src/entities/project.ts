@@ -18,6 +18,9 @@ export class ProjectEntity {
 
     @Column()
         about: string;
+        
+    @Column()
+        introduction: string;
 
     @Column()
         max_participants: number;
