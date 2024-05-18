@@ -42,5 +42,5 @@ export class ProjectEntity {
     user: UserEntity;
 
     @Column()
-        status: string;
+        status: boolean;
 }
