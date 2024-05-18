@@ -6,6 +6,7 @@ import UserRouter from './user';
 import ProjectRouter from './project';
 import FavoriteRouter from './favorites';
 import ParticipantRouter from './participants';
+import ParticipantViewRoutes from './participantView'
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/user', UserRouter);
 router.use('/project', ProjectRouter);
 router.use('/favorite', FavoriteRouter);
 router.use('/participants', ParticipantRouter);
+router.use('/participant-view', ParticipantViewRoutes);
 
 export default router;
