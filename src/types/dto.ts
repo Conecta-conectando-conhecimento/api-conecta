@@ -20,7 +20,6 @@ export type CreateProjectDTO = {
     title: string;
     about: string;
     max_participants: number;
-    interest_area: string;
     activities?: string;
     created_by: number;
     likes?: number;

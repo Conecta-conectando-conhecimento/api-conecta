@@ -64,9 +64,9 @@ export class ProjectService {
 
     create = async (createProjectDTO: CreateProjectDTO): Promise<APIResponse<string, ErrorTypes>> => {
         try {
-            const { title, about, max_participants, interest_area, activities } = createProjectDTO;
+            const { title, about, max_participants, activities } = createProjectDTO;
 
-            if (!title || !about || !max_participants || !interest_area) {
+            if (!title || !about || !max_participants) {
                 return response.error('Os campos título, descrição, número máximo de participantes e área de interesse são obrigatórios', 400);
             }
 

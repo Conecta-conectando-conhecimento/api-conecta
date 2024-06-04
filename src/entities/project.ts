@@ -26,9 +26,6 @@ export class ProjectEntity {
         max_participants: number;
 
     @Column()
-        interest_area: string;
-
-    @Column()
         activities!: string;
 
     @CreateDateColumn({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
