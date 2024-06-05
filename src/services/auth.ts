@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import { APIResponse, ErrorTypes, ResponseOn } from '../config/utils/response';
 import { UserRepository } from '../repositories/user';
-import { ILoginResponse, IResetPasswordToken, IUserToken } from '../types/interface';
+import { ILoginResponse, IResetPasswordToken } from '../types/interface';
+import { resetPasswordEmail } from '../config/utils/reset_password_email';
 
 const response = new ResponseOn();
 const userRepository = new UserRepository();
@@ -141,7 +142,7 @@ export class AuthService {
 
             await userRepository.updatePassword(decoded.user_id, decoded.password);
 
-            return response.success('Senha alterada com sucesso', 200);
+            return response.success('Senha alterada com sucesso', 200); 
         } catch (error) {
             return response.error(error);
         }
