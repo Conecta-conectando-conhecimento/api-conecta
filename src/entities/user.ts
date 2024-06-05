@@ -1,44 +1,47 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryColumn, Timestamp } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { UserAreasEntity } from './userAreasEntity';
 
 @Entity('User')
 export class UserEntity {
-    @PrimaryColumn()
-        id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column()
-        email: string;
+    email: string;
 
     @Column()
-        cpf: string;
+    cpf: string;
 
     @Column()
-        name: string;
+    name: string;
 
     @Column()
-        user_name: string;
+    user_name: string;
 
     @Column()
-        birthday: Date;
+    birthday: Date;
 
     @Column()
-        password: string;
+    password: string;
 
-    @Column()
-        campus!: string;
+    @Column({ nullable: true })
+    campus?: string;
 
-    @Column()
-        sobre!: string;
+    @Column({ nullable: true })
+    sobre?: string;
 
-    @Column()
-        linkedin!: string;
+    @Column({ nullable: true })
+    linkedin?: string;
 
-    @Column()
-        instagram!: string;
-    
-    @CreateDateColumn( {type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP'} )
-        created_date: Date;
+    @Column({ nullable: true })
+    instagram?: string;
 
-    @DeleteDateColumn( {type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP'} )
-        deactivation_date!: Date;
+    @CreateDateColumn({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
+    created_date: Date;
 
+    @DeleteDateColumn({ type: 'timestamp with time zone', nullable: true })
+    deactivation_date?: Date;
+
+    @OneToMany(() => UserAreasEntity, userAreas => userAreas.user)
+    userAreas: UserAreasEntity[];
 }

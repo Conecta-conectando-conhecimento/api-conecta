@@ -1,6 +1,7 @@
 import { AppDataSource } from '../database/connection';
 import { UserEntity } from '../entities/user';
 import { CreateUserDTO, UpdateUserDTO } from '../types/dto';
+import { UserAreasRepository } from './userAreas';
 
 const userRepository = AppDataSource.getRepository(UserEntity);
 
@@ -27,8 +28,14 @@ export class UserRepository {
         return await userRepository.findOneBy({ cpf });
     }
 
-    create = async (createUserDTO: CreateUserDTO): Promise<void> => {
-        await userRepository.insert(createUserDTO);
+    create = async (createUserDTO: CreateUserDTO, areaIds: number[]): Promise<UserEntity> => {
+        const user = userRepository.create(createUserDTO);
+        await userRepository.save(user);
+
+        const userAreas = areaIds.map(areaId => UserAreasRepository.create({ user_id: user.id, areas_id: areaId }));
+        await UserAreasRepository.save(userAreas);
+
+        return user;
     };
 
     update = async (id: number, updateUserDTO: UpdateUserDTO): Promise<void> => {
