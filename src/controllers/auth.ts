@@ -16,14 +16,14 @@ export class AuthController {
     }
 
     async forgotPassword(req, res) {
-        const { email } = req.body;
-        const { codehttp, ...rest } = await authService.forgotPassword(email);
+        const { email, password } = req.body;
+        const { codehttp, ...rest } = await authService.forgotPassword(email, password);
         return res.status(codehttp).json(rest);
     }
 
     async resetPassword(req, res) {
-        const { token, password } = req.body;
-        const { codehttp, ...rest } = await authService.resetPassword(token, password);
+        const { token } = req.body;
+        const { codehttp, ...rest } = await authService.resetPassword(token);
         return res.status(codehttp).json(rest);
     }
 }
