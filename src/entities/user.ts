@@ -41,4 +41,7 @@ export class UserEntity {
     @DeleteDateColumn( {type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP'} )
         deactivation_date!: Date;
 
+    @Column()
+    user_image_path!: string;
+
 }
