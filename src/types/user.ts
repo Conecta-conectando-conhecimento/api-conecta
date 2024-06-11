@@ -35,6 +35,7 @@ export class UserRepository {
         await userRepository.update(id, updateUserDTO);
     };
 
+
     updatePassword = async (id: number, password: string): Promise<void> => {
         await userRepository.update(id, { password });
     };

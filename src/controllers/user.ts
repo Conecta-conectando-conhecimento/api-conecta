@@ -22,8 +22,23 @@ export class UserController {
 
     async update(req, res) {
         const { id } = req.params;
-        const { name, email, name_user, birthday } = req.body;
-        const { codehttp, ...rest } = await userService.update(id, name, email, name_user, birthday);
+        const { email, cpf, name, user_name, birthday, password, campus, sobre, linkedin, instagram, user_image_path } = req.body;
+
+        const payload = {
+            email,
+            cpf,
+            name,
+            user_name,
+            birthday,
+            password,
+            campus,
+            sobre,
+            linkedin,
+            instagram,
+            user_image_path
+        };
+
+        const { codehttp, ...rest } = await userService.update(Number(id), payload);
         return res.status(codehttp).json(rest);
     }
 

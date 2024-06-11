@@ -5,6 +5,20 @@ import { UserRepository } from '../repositories/user';
 const response = new ResponseOn();
 const userRepository = new UserRepository();
 
+type UpdateUserPayload = Partial<{
+    email: string;
+    cpf: string;
+    name: string;
+    user_name: string;
+    birthday: Date;
+    password: string;
+    campus: string;
+    sobre: string;
+    linkedin: string;
+    instagram: string;
+    user_image_path: string;
+}>;
+
 export class UserService {
     getAll = async (): Promise<APIResponse<UserEntity[], ErrorTypes>> => {
         try {
@@ -15,7 +29,6 @@ export class UserService {
             }
 
             return response.success(users, 200);
-
         } catch (error) {
             return response.error(error, 500);
         }
@@ -38,7 +51,7 @@ export class UserService {
             return response.error(error, 500);
         }
     };
-    
+
     getByEmail = async (email: string): Promise<APIResponse<UserEntity | null, ErrorTypes>> => {
         try {
             if (!email) {
@@ -57,9 +70,7 @@ export class UserService {
         }
     };
 
-
-
-    update = async (id: number, email: string, name: string, user_name: string, birthday: Date): Promise<APIResponse<string | null, ErrorTypes>> => {
+    update = async (id: number, payload: UpdateUserPayload): Promise<APIResponse<string | null, ErrorTypes>> => {
         try {
             if (!id) {
                 return response.error('O id do usuário é obrigatório', 400);
@@ -70,11 +81,20 @@ export class UserService {
             if (!checkUserExist) {
                 return response.error(`Usuário de id ${id} não encontrado`, 404);
             }
-        
-            await userRepository.update(id, { name, email , user_name, birthday});
- 
+
+            const filteredPayload = Object.fromEntries(
+                Object.entries(payload).filter(([_, value]) => value !== undefined)
+            );
+
+            if (Object.keys(filteredPayload).length === 0) {
+                return response.error('Nenhum campo para atualizar foi fornecido', 400);
+            }
+
+            await userRepository.update(id, filteredPayload);
+
             return response.success('Usuário foi atualizado com sucesso', 200);
         } catch (error) {
+            console.log(payload)
             return response.error(error, 500);
         }
     };
@@ -88,7 +108,7 @@ export class UserService {
             const checkUserExist = await userRepository.getById(id);
 
             if (!checkUserExist) {
-                response.error(`Usuário de id ${id} não encontrado`, 404);
+                return response.error(`Usuário de id ${id} não encontrado`, 404);
             }
 
             await userRepository.exclude(id);
