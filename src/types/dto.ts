@@ -1,19 +1,30 @@
-export type CreateUserDTO = {
+export interface CreateUserDTO {
     email: string;
     cpf: string;
     name: string;
-    user_name:string;
-    birthday:Date;
+    user_name: string;
+    birthday: Date;
     password: string;
-    role_id: number;
+    campus: string;
+    sobre: string;
+    linkedin: string;
+    instagram: string;
+    user_image_path: string;
 }
 
-export type UpdateUserDTO = {
+
+export interface UpdateUserDTO {
     email?: string;
+    cpf?: string;
     name?: string;
-    user_name?:string;
-    birthday?:Date;
-    role_id?: number;
+    user_name?: string;
+    birthday?: Date;
+    password?: string;
+    campus?: string;
+    sobre?: string;
+    linkedin?: string;
+    instagram?: string;
+    user_image_path?: string;
 }
 
 export type CreateProjectDTO = {
