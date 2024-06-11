@@ -49,3 +49,17 @@ export class UpdateParticipantDTO {
     user_id?: number;
 }
 
+// src/dto/CreateProjectFileDTO.ts
+export class CreateProjectFileDTO {
+    name: string;
+    file_url: string;
+    project_id: number;
+}
+
+// src/dto/UpdateProjectFileDTO.ts
+export class UpdateProjectFileDTO {
+    name?: string;
+    file_url?: string;
+}
+
+
