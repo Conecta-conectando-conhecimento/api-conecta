@@ -19,9 +19,9 @@ export class ProjectFilesService {
     }
 
     async getByProject(project_id: number) {
-        const projectFile = await projectFilesRepository.getByProject(project_id);
-        if (projectFile) {
-            return { codehttp: 200, projectFile };
+        const data = await projectFilesRepository.getByProject(project_id);
+        if (data) {
+            return { codehttp: 200, data };
         } else {
             return { codehttp: 404, message: 'Project file not found' };
         }

@@ -22,9 +22,9 @@ export class ProjectFilesRepository {
         return await projectFilesRepository.findOne({ where: { id } });
     };
 
-    getByProject = async (project_id: number): Promise<ProjectFilesEntity | undefined> => {
-        return await projectFilesRepository.findOne({where: { project_id }})
-    }
+    getByProject = async (project_id: number): Promise<ProjectFilesEntity[] | undefined> => {
+        return await projectFilesRepository.find({ where: { project_id } });
+    };
 
     create = async (createProjectFileDTO: CreateProjectFileDTO): Promise<void> => {
         const projectFile = projectFilesRepository.create(createProjectFileDTO);
