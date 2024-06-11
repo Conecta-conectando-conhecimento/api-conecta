@@ -6,6 +6,7 @@ const response = new ResponseOn();
 const userRepository = new UserRepository();
 
 export class UserService {
+
     getAll = async (): Promise<APIResponse<UserEntity[], ErrorTypes>> => {
         try {
             const users = await userRepository.getAll();

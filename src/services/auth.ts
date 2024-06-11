@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { APIResponse, ErrorTypes, ResponseOn } from '../config/utils/response';
 import { UserRepository } from '../repositories/user';
 import { ILoginResponse, IUserToken } from '../types/interface';
+import { CreateUserDTO } from '../types/dto';
 
 const response = new ResponseOn();
 const userRepository = new UserRepository();
@@ -52,10 +53,10 @@ export class AuthService {
         }
     };
 
-    register = async (email: string, cpf: string, name: string, user_name: string, birthday: Date, password: string): Promise<APIResponse<string, ErrorTypes>> => {
+    register = async (email: string, cpf: string, name: string, user_name: string, birthday: Date, password: string, areaIds: number[]): Promise<APIResponse<string, ErrorTypes>> => {
         try {
-            if (!name || !email || !password || !cpf) {
-                return response.error('O nome, o email, o cpf e a senha são obrigatórios', 400);
+            if (!name || !email || !password || !cpf || !areaIds || areaIds.length === 0) {
+                return response.error('O nome, o email, o cpf, a senha e as áreas de interesse são obrigatórios', 400);
             }
 
             if (cpf.length !== 11) {
@@ -78,13 +79,25 @@ export class AuthService {
 
             const roleIdDefault = 2;
 
-            await userRepository.create({email, cpf, name, user_name, birthday, password: hashedPassword, role_id: roleIdDefault});
+            const createUserDTO: CreateUserDTO = {
+                email,
+                cpf,
+                name,
+                user_name,
+                birthday,
+                password: hashedPassword,
+                role_id: roleIdDefault,
+                areaIds, 
+            };
+
+            await userRepository.create(createUserDTO);
 
             return response.success('Usuário criado com sucesso', 201);
         } catch (error) {
             return response.error(error);
         }
     };
+
 
     forgotPassword = async (email: string) => {
         try {

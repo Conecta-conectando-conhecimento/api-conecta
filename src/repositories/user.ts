@@ -2,8 +2,10 @@ import { AppDataSource } from '../database/connection';
 import { UserEntity } from '../entities/user';
 import { CreateUserDTO, UpdateUserDTO } from '../types/dto';
 import { UserAreasRepository } from './userAreas';
+import { UserAreasEntity } from '../entities/userAreasEntity';
 
 const userRepository = AppDataSource.getRepository(UserEntity);
+const userAreasRepository = AppDataSource.getRepository(UserAreasEntity);
 
 export class UserRepository {
     getAll = async (page?: number, limit?: number): Promise<UserEntity[]> => {
@@ -26,14 +28,18 @@ export class UserRepository {
 
     getByCPF = async (cpf: string): Promise<UserEntity> => {
         return await userRepository.findOneBy({ cpf });
-    }
+    };
 
-    create = async (createUserDTO: CreateUserDTO, areaIds: number[]): Promise<UserEntity> => {
-        const user = userRepository.create(createUserDTO);
+    
+    create = async (createUserDTO: CreateUserDTO): Promise<UserEntity> => {
+        const { areaIds, ...userDetails } = createUserDTO;
+        const user = userRepository.create(userDetails);
         await userRepository.save(user);
 
-        const userAreas = areaIds.map(areaId => UserAreasRepository.create({ user_id: user.id, areas_id: areaId }));
-        await UserAreasRepository.save(userAreas);
+
+        const userAreas = areaIds.map(areas_id => ({ areas_id, user_id: user.id }));
+        const userAreasEntities = userAreas.map(userArea => userAreasRepository.create(userArea));
+        await userAreasRepository.save(await Promise.all(userAreasEntities));
 
         return user;
     };

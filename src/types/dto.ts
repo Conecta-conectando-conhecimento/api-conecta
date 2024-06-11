@@ -6,6 +6,7 @@ export type CreateUserDTO = {
     birthday:Date;
     password: string;
     role_id: number;
+    areaIds: number[];
 }
 
 export type UpdateUserDTO = {
@@ -49,3 +50,7 @@ export class UpdateParticipantDTO {
     user_id?: number;
 }
 
+export class CreateAreaUserDTO {
+    area_id: number;
+    user_id: number;
+}

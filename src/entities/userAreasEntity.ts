@@ -1,6 +1,6 @@
 import { Entity, PrimaryColumn, ManyToOne } from 'typeorm';
 import { UserEntity } from './user';
-import { interestAreasEntity } from './InterestArea';
+import { interestAreasEntity } from './interestArea';
 
 @Entity('UserAreas')
 export class UserAreasEntity {

@@ -1,18 +1,16 @@
 import { AppDataSource } from '../database/connection';
-import { UserEntity } from '../entities/user';
 import { UserAreasEntity } from '../entities/userAreasEntity';
-import { CreateUserDTO, UpdateUserDTO } from '../types/dto';
+import { CreateAreaUserDTO } from '../types/dto';
 
+const userAreasRepository = AppDataSource.getRepository(UserAreasEntity);
 
-const userRepository = AppDataSource.getRepository(UserAreasEntity);
-
-export class UserAreasRepository{
-
-    save(){
-
+export class UserAreasRepository {
+    async create(createAreaUserDTO: CreateAreaUserDTO): Promise<UserAreasEntity> {
+        const userArea = userAreasRepository.create(createAreaUserDTO);
+        return await userAreasRepository.save(userArea);
     }
 
-    create(){
-        
+    async save(userAreas: UserAreasEntity[]): Promise<UserAreasEntity[]> {
+        return await userAreasRepository.save(userAreas);
     }
 }
