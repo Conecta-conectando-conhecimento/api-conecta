@@ -53,11 +53,13 @@ export type CreateFavoriteDTO = {
 export class CreateParticipantDTO {
     project_id: number;
     user_id: number;
+    is_admin: boolean;
 }
 
 export class UpdateParticipantDTO {
     project_id?: number;
     user_id?: number;
+    is_admin: boolean;
 }
 
 // src/dto/CreateProjectFileDTO.ts
