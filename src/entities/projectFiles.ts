@@ -10,6 +10,9 @@ export class ProjectFilesEntity {
     name: string;
 
     @Column()
+    small_file_url: string;
+    
+    @Column()
     file_url: string;
 
     @Column()
