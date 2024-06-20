@@ -7,6 +7,7 @@
     "strict": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "outDir": "./public",
   }
 }
