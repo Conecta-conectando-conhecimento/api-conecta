@@ -6,7 +6,6 @@ export type CreateUserDTO = {
     birthday:Date;
     password: string;
     role_id: number;
-    areaIds: number[];
 }
 
 export type UpdateUserDTO = {

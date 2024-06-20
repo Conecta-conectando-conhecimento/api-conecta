@@ -1,6 +1,7 @@
 import { APIResponse, ErrorTypes, ResponseOn } from '../config/utils/response';
 import { UserEntity } from '../entities/user';
 import { UserRepository } from '../repositories/user';
+import { CreateUserDTO } from '../types/dto';
 
 const response = new ResponseOn();
 const userRepository = new UserRepository();

@@ -10,8 +10,8 @@ export class AuthController {
     }
 
     async register(req, res) {
-        const { email, cpf, name, user_name, birthday, password } = req.body;
-        const { codehttp, ...rest } = await authService.register(email, cpf, name, user_name, birthday, password);
+        const { email, cpf, name, user_name, birthday, password, areaId } = req.body;
+        const { codehttp, ...rest } = await authService.register(email, cpf, name, user_name, birthday, password, areaId);
         return res.status(codehttp).json(rest);
     }
 

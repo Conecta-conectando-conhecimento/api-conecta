@@ -1,51 +1,75 @@
 import { AppDataSource } from '../database/connection';
 import { UserEntity } from '../entities/user';
-import { CreateUserDTO, UpdateUserDTO } from '../types/dto';
-import { UserAreasRepository } from './userAreas';
+import { CreateUserDTO, UpdateUserDTO, CreateAreaUserDTO } from '../types/dto';
 import { UserAreasEntity } from '../entities/userAreasEntity';
 
 const userRepository = AppDataSource.getRepository(UserEntity);
 const userAreasRepository = AppDataSource.getRepository(UserAreasEntity);
 
 export class UserRepository {
-    getAll = async (page?: number, limit?: number): Promise<UserEntity[]> => {
-        const skipNumber = page || 1;
-        const takeNumber = limit || 20;
-
+    getAll = async (page: number = 1, limit: number = 20): Promise<UserEntity[]> => {
+        const skip = (page - 1) * limit;
         return await userRepository.find({
-            skip: (skipNumber - 1) * takeNumber,
-            take: takeNumber,
+            skip,
+            take: limit,
         });
     };
 
-    getById = async (id: number): Promise<UserEntity> => {
+    getById = async (id: number): Promise<UserEntity | null> => {
         return await userRepository.findOneBy({ id });
     };
 
-    getByEmail = async (email: string): Promise<UserEntity> => {
+    getByEmail = async (email: string): Promise<UserEntity | null> => {
         return await userRepository.findOneBy({ email });
     };
 
-    getByCPF = async (cpf: string): Promise<UserEntity> => {
+    getByCPF = async (cpf: string): Promise<UserEntity | null> => {
         return await userRepository.findOneBy({ cpf });
     };
 
-    
-    create = async (createUserDTO: CreateUserDTO): Promise<UserEntity> => {
-        const { areaIds, ...userDetails } = createUserDTO;
-        const user = userRepository.create(userDetails);
-        await userRepository.save(user);
+    private async updateEntity(id: number, updateUserDTO: UpdateUserDTO): Promise<void> {
+        await userRepository.update(id, updateUserDTO);
+    }
 
+    private async insert(createUserDTO: CreateUserDTO): Promise<UserEntity> {
+        const user = userRepository.create(createUserDTO);
+        return await userRepository.save(user);
+    }
 
-        const userAreas = areaIds.map(areas_id => ({ areas_id, user_id: user.id }));
-        const userAreasEntities = userAreas.map(userArea => userAreasRepository.create(userArea));
-        await userAreasRepository.save(await Promise.all(userAreasEntities));
+    private async insertAreaOfInterest(user_id: number, areaId: number): Promise<void> {
+        const userArea = userAreasRepository.create({ user_id: user_id, area_id: areaId });
+        await userAreasRepository.save(userArea);
+    }
 
-        return user;
-    };
+    async create(createUserDTO: CreateUserDTO, areaId: number): Promise<number> {
+        const queryRunner = AppDataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+
+        try {
+            // Inserir o novo usuário
+            const user = userRepository.create(createUserDTO);
+            const savedUser = await queryRunner.manager.save(user);
+
+            // Inserir a área de interesse
+            const userArea = userAreasRepository.create({ user_id: savedUser.id, area_id: areaId });
+            await queryRunner.manager.save(userArea);
+
+            // Commitar a transação
+            await queryRunner.commitTransaction();
+            return savedUser.id;
+        } catch (error) {
+            // Reverter a transação em caso de erro
+            await queryRunner.rollbackTransaction();
+            throw error;
+        } finally {
+            // Liberar a conexão do query runner
+            await queryRunner.release();
+        }
+    }
 
     update = async (id: number, updateUserDTO: UpdateUserDTO): Promise<void> => {
-        await userRepository.update(id, updateUserDTO);
+        await this.updateEntity(id, updateUserDTO);
     };
 
     updatePassword = async (id: number, password: string): Promise<void> => {
