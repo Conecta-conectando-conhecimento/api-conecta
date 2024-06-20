@@ -5,11 +5,12 @@ export interface CreateUserDTO {
     user_name: string;
     birthday: Date;
     password: string;
-    campus: string;
-    sobre: string;
-    linkedin: string;
-    instagram: string;
-    user_image_path: string;
+    campus?: string;
+    sobre?: string;
+    linkedin?: string;
+    instagram?: string;
+    user_image_path?: string;
+    role_id: number;
 }
 
 
