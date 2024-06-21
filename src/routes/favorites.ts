@@ -1,10 +1,13 @@
+// src/routes/favorites.js
+
 import { Router } from 'express';
-import { FavoriteController } from '../controllers/Favorites';
+import { FavoriteController } from '../controllers/favorites';
 
 const router = Router();
 const favoriteController = new FavoriteController();
 
 router.get('/:id', favoriteController.getById);
+router.get('/user/:userId', favoriteController.getFavoritesByUserId); // Adicione esta linha
 router.post('/create', favoriteController.create);
 router.delete('/delete/:id', favoriteController.exclude);
 

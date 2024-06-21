@@ -1,3 +1,5 @@
+// src/services/favorites.js
+
 import { APIResponse, ErrorTypes, ResponseOn } from '../config/utils/response';
 import { MySavedEntity } from '../entities/favorites';
 import { FavoriteRepository } from '../repositories/favorites';
@@ -7,7 +9,7 @@ const response = new ResponseOn();
 const favoriteRepository = new FavoriteRepository();
 
 export class FavoriteService {
-    
+
     create = async (CreateFavoriteDTO: CreateFavoriteDTO): Promise<APIResponse<string | null, ErrorTypes>> => {
         try {
             await favoriteRepository.create(CreateFavoriteDTO);
@@ -26,12 +28,22 @@ export class FavoriteService {
         }
     };
 
-    exclude = async (id: number): Promise<APIResponse<string | null, ErrorTypes>> => {
-        try { await favoriteRepository.exclude(id);
-            return response.success('Projeto removido dos favoritos com sucesso', 200);
+    getFavoritesByUserId = async (userId: number): Promise<APIResponse<MySavedEntity[], ErrorTypes>> => {
+        try {
+            const favorites = await favoriteRepository.getFavoritesByUserId(userId);
+            console.log(`Service found favorites: ${JSON.stringify(favorites)}`);
+            return response.success(favorites, 200);
         } catch (error) {
             return response.error(error, 500);
         }
     };
 
+    exclude = async (id: number): Promise<APIResponse<string | null, ErrorTypes>> => {
+        try { 
+            await favoriteRepository.exclude(id);
+            return response.success('Projeto removido dos favoritos com sucesso', 200);
+        } catch (error) {
+            return response.error(error, 500);
+        }
+    };
 }

@@ -1,3 +1,5 @@
+// src/controllers/favorites.js
+
 import { FavoriteService } from '../services/favorites';
 
 const favoriteService = new FavoriteService();
@@ -9,7 +11,7 @@ export class FavoriteController {
         return res.status(codehttp).json(rest);
     }
 
-     async exclude(req, res) {
+    async exclude(req, res) {
         const { id } = req.params; 
         const { codehttp, ...rest } = await favoriteService.exclude(id);
         return res.status(codehttp).json(rest);
@@ -18,6 +20,13 @@ export class FavoriteController {
     async getById(req, res) {
         const { id } = req.params;
         const { codehttp, ...rest } = await favoriteService.getById(id);
+        return res.status(codehttp).json(rest);
+    }
+
+    async getFavoritesByUserId(req, res) {
+        const { userId } = req.params;
+        console.log(`Controller received request to get favorites for user_id: ${userId}`);
+        const { codehttp, ...rest } = await favoriteService.getFavoritesByUserId(userId);
         return res.status(codehttp).json(rest);
     }
 }
