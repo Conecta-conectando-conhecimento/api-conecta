@@ -24,4 +24,6 @@ export class ParticipantsEntity {
     @Column()
         is_admin: boolean;
     
+    @Column({ type: 'timestamp', nullable: true })
+    deleted_at: Date | null;
 }

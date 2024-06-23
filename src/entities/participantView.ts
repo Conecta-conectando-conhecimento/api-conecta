@@ -24,4 +24,7 @@ export class ParticipantViewEntity {
 
     @Column()
     user_image_url: string;
+    
+    @Column({ type: 'timestamp', nullable: true })
+    deleted_at: Date | null;
 }

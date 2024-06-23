@@ -18,6 +18,15 @@ export class ParticipantRepository {
         return await participantRepository.find({ where: { user_id: userId } });
     };
 
+    getByProjectAndUserId = async (projectId: number, userId: number): Promise<ParticipantsEntity | null> => {
+        const participant = await participantRepository.findOne({ where: { project_id: projectId, user_id: userId } });
+        return participant || null;
+    };
+
+    restore = async (participantId: number): Promise<void> => {
+        await participantRepository.update(participantId, { deleted_at: null });
+    };
+
     create = async (createParticipantDTO: CreateParticipantDTO): Promise<void> => {
         await participantRepository.insert(createParticipantDTO);
     };
@@ -27,6 +36,6 @@ export class ParticipantRepository {
     };
 
     exclude = async (id: number): Promise<void> => {
-        await participantRepository.delete({ id });
-    };
+        await participantRepository.update(id, { deleted_at: new Date() });
+    }
 }

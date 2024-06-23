@@ -1,6 +1,7 @@
 import { AppDataSource } from '../database/connection';
 import { UserEntity } from '../entities/user';
 import { CreateUserDTO, UpdateUserDTO } from '../types/dto';
+import { ILike } from 'typeorm';
 
 const userRepository = AppDataSource.getRepository(UserEntity);
 
@@ -14,6 +15,22 @@ export class UserRepository {
             take: takeNumber,
         });
     };
+
+
+    // repository
+    // repository
+    getByName = async (name: string): Promise<UserEntity[]> => {
+        const users = await userRepository.find({
+            where: {
+                name: ILike(`%${name}%`)
+            }
+        });
+
+        return users;
+    };
+
+
+
 
     getById = async (id: number): Promise<UserEntity> => {
         return await userRepository.findOneBy({ id });

@@ -34,6 +34,24 @@ export class UserService {
         }
     };
 
+    getByName = async (name: string): Promise<APIResponse<UserEntity[] | null, ErrorTypes>> => {
+        try {
+            if (!name) {
+                return response.error('O nome é obrigatório', 400);
+            }
+
+            const users = await userRepository.getByName(name);
+
+            if (!users) {
+                return response.error(`Usuário de nome ${name} não encontrado`, 404);
+            }
+
+            return response.success(users, 200);
+        } catch (error) {
+            return response.error(error, 500);
+        }
+    };
+
     getById = async (id: number): Promise<APIResponse<UserEntity | null, ErrorTypes>> => {
         try {
             if (!id) {

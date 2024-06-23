@@ -66,7 +66,8 @@ export class UpdateParticipantDTO {
 // src/dto/CreateProjectFileDTO.ts
 export class CreateProjectFileDTO {
     name: string;
-    file_url: string;
+    file_url?: string;
+    small_file_url?: string;
     project_id: number;
 }
 
