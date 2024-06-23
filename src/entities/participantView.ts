@@ -11,10 +11,13 @@ export class ParticipantViewEntity {
     project_id: number;
 
     @Column()
-    project_title: string;
+    user_id: number;
 
     @Column()
-    user_id: number;
+    is_admin: boolean;
+
+    @Column()
+    project_title: string;
 
     @Column()
     user_name: string;

@@ -20,5 +20,8 @@ export class ParticipantsEntity {
     @ManyToOne(() => UserEntity)
     @JoinColumn({ name: 'user_id' })
     user: UserEntity;
+
+    @Column()
+        is_admin: boolean;
     
 }
