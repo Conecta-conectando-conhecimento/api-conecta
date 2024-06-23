@@ -8,6 +8,12 @@ export class UserController {
         return res.status(codehttp).json(rest);
     }
 
+    async getByName(req, res) {
+        const { name } = req.params;
+        const { codehttp, ...rest } = await userService.getByName(name);
+        return res.status(codehttp).json(rest);
+    }
+
     async getById(req, res) {
         const { id } = req.params;
         const { codehttp, ...rest } = await userService.getById(id);

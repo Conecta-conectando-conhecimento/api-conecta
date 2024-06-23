@@ -9,9 +9,14 @@ export class ParticipantViewRepository {
         return await participantViewRepository.findOne({ where: { participant_id: id } });
     };
 
-    getByProjectId = async (projectId: number): Promise<ParticipantViewEntity[]> => {
-        return await participantViewRepository.find({ where: { project_id: projectId } });
-    };
+    async getByProjectId(projectId: number): Promise<ParticipantViewEntity[]> {
+        return await participantViewRepository.find({ 
+            where: { 
+                project_id: projectId,
+                deleted_at: null
+            }
+        });
+    }
 
     getByUserId = async (userId: number): Promise<ParticipantViewEntity[]> => {
         return await participantViewRepository.find({ where: { user_id: userId } });

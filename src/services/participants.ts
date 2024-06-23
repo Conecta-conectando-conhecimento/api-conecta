@@ -1,6 +1,7 @@
 import { APIResponse, ErrorTypes, ResponseOn } from '../config/utils/response';
 import { ParticipantsEntity } from '../entities/participants';
 import { ParticipantRepository } from '../repositories/participants';
+import { UserRepository } from '../repositories/user';
 import { CreateParticipantDTO, UpdateParticipantDTO } from '../types/dto';
 
 const response = new ResponseOn();
@@ -66,18 +67,31 @@ export class ParticipantService {
     create = async (createParticipantDTO: CreateParticipantDTO): Promise<APIResponse<string, ErrorTypes>> => {
         try {
             const { project_id, user_id } = createParticipantDTO;
-
+    
             if (!project_id || !user_id) {
                 return response.error('Os campos id do projeto e id do usuário são obrigatórios', 400);
             }
-
-            await participantRepository.create(createParticipantDTO);
-
-            return response.success('Participante foi criado com sucesso', 201);
+    
+            const existingParticipant = await participantRepository.getByProjectAndUserId(project_id, user_id);
+    
+            if (existingParticipant) {
+                if (existingParticipant.deleted_at) {
+                    // Se o participante existe e está marcado como deletado, restaura o participante
+                    await participantRepository.restore(existingParticipant.id);
+                    return response.success('Participante foi restaurado com sucesso', 200);
+                } else {
+                    return response.error('Participante já existe', 400);
+                }
+            } else {
+                // Caso contrário, cria um novo participante normalmente
+                await participantRepository.create(createParticipantDTO);
+                return response.success('Participante foi criado com sucesso', 201);
+            }
         } catch (error) {
             return response.error(error, 500);
         }
     };
+    
 
     update = async (id: number, updateParticipantDTO: UpdateParticipantDTO): Promise<APIResponse<string, ErrorTypes>> => {
         try {
@@ -99,7 +113,7 @@ export class ParticipantService {
         }
     };
 
-    exclude = async (id: number): Promise<APIResponse<string, ErrorTypes>> => {
+    async exclude(id: number): Promise<APIResponse<string, ErrorTypes>> {
         try {
             if (!id) {
                 return response.error('O id é obrigatório', 400);
@@ -117,5 +131,5 @@ export class ParticipantService {
         } catch (error) {
             return response.error(error, 500);
         }
-    };
+    }
 }
