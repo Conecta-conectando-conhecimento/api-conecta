@@ -17,16 +17,13 @@ export class FavoriteRepository {
     };
 
     getFavoritesByUserId = async (userId: number): Promise<MySavedEntity[]> => {
-        console.log(`Fetching favorites for user_id: ${userId}`);
-        const favorites = await favoriteRepository.find({
+        return await favoriteRepository.find({
             where: { user_id: userId },
             relations: ['project'] // Carregar os detalhes do projeto associado
         });
-        console.log(`Found favorites: ${JSON.stringify(favorites)}`);
-        return favorites;
     };
 
-    exclude = async (id: number): Promise<void> => {
-        await favoriteRepository.delete({ id });
+    exclude = async (userId: number, projectId: number): Promise<void> => {
+        await favoriteRepository.delete({ user_id: userId, project_id: projectId });
     };
 }

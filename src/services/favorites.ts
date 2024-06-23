@@ -31,16 +31,15 @@ export class FavoriteService {
     getFavoritesByUserId = async (userId: number): Promise<APIResponse<MySavedEntity[], ErrorTypes>> => {
         try {
             const favorites = await favoriteRepository.getFavoritesByUserId(userId);
-            console.log(`Service found favorites: ${JSON.stringify(favorites)}`);
             return response.success(favorites, 200);
         } catch (error) {
             return response.error(error, 500);
         }
     };
 
-    exclude = async (id: number): Promise<APIResponse<string | null, ErrorTypes>> => {
+    exclude = async (userId: number, projectId: number): Promise<APIResponse<string | null, ErrorTypes>> => {
         try { 
-            await favoriteRepository.exclude(id);
+            await favoriteRepository.exclude(userId, projectId);
             return response.success('Projeto removido dos favoritos com sucesso', 200);
         } catch (error) {
             return response.error(error, 500);
