@@ -12,20 +12,8 @@
             "dest": "public/server.js"
         },
         {
-            "src": "/api/auth/login",
-            "dest": "public/routes/auth.js"
-        },
-        {
-            "src": "/api/auth/register",
-            "dest": "public/routes/auth.js"
-        },
-        {
-            "src": "/api/auth/forgot-password",
-            "dest": "public/routes/auth.js"
-        },
-        {
-            "src": "/api/auth/reset-password",
-            "dest": "public/routes/auth.js"
+         "src": "/api/auth/(.*)",
+         "dest": "public/routes/auth.js"
         },
         {
             "src": "/api/user/all",
