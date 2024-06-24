@@ -8,6 +8,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "outDir": "./public",
+    "outDir": "./dist",
+    "rootDir": "./src",
   }
 }
