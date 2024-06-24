@@ -1,71 +1,75 @@
 {
     "version": 2,
-    "builds":[
+    "builds": [
         {
-            "src":"./public/server.js",
+            "src": "./public/server.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
+            "src": "/",
+            "dest": "public/server.js"
+        },
+        {
             "src": "/api/auth/login",
-            "dest": "./public/routes/auth.js"
+            "dest": "public/routes/auth.js"
         },
         {
             "src": "/api/auth/register",
-            "dest": "./public/routes/auth.js"
+            "dest": "public/routes/auth.js"
         },
         {
             "src": "/api/auth/forgot-password",
-            "dest": "./public/routes/auth.js"
+            "dest": "public/routes/auth.js"
         },
         {
             "src": "/api/auth/reset-password",
-            "dest": "./public/routes/auth.js"
+            "dest": "public/routes/auth.js"
         },
         {
             "src": "/api/user/all",
-            "dest": "./public/routes/user.js"
+            "dest": "public/routes/user.js"
         },
         {
             "src": "/api/user/name/:name",
-            "dest": "./public/routes/user.js"
+            "dest": "public/routes/user.js"
         },
         {
             "src": "/api/user/:id",
-            "dest": "./public/routes/user.js"
+            "dest": "public/routes/user.js"
         },
         {
             "src": "/api/user/:email",
-            "dest": "./public/routes/user.js"
+            "dest": "public/routes/user.js"
         },
         {
             "src": "/api/user/update/:id",
-            "dest": "./public/routes/user.js"
+            "dest": "public/routes/user.js"
         },
         {
             "src": "/api/user/delete/:id",
-            "dest": "./public/routes/user.js"
+            "dest": "public/routes/user.js"
         },
         {
             "src": "/api/project/all",
-            "dest": "./public/routes/project.js"
+            "dest": "public/routes/project.js"
         },
         {
             "src": "/api/project/:id",
-            "dest": "./public/routes/project.js"
+            "dest": "public/routes/project.js"
         },
         {
             "src": "/api/project/create",
-            "dest": "./public/routes/project.js"
+            "dest": "public/routes/project.js"
         },
         {
             "src": "/api/project/update/:id",
-            "dest": "./public/routes/project.js"
+            "dest": "public/routes/project.js"
         },
         {
             "src": "/api/project/delete/:id",
-            "dest": "./public/routes/project.js"
+            "dest": "public/routes/project.js"
         }
     ]
 }
