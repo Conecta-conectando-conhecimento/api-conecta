@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const participantView_1 = require("../controllers/participantView");
+const router = (0, express_1.Router)();
+const participantViewController = new participantView_1.ParticipantViewController();
+router.get('/:id', participantViewController.getById);
+router.get('/project/:projectId', participantViewController.getByProjectId);
+router.get('/user/:userId', participantViewController.getByUserId);
+exports.default = router;
