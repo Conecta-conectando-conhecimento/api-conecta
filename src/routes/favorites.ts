@@ -7,8 +7,8 @@ const router = Router();
 const favoriteController = new FavoriteController();
 
 router.get('/:id', favoriteController.getById);
-router.get('/user/:userId', favoriteController.getFavoritesByUserId); // Adicione esta linha
+router.get('/user/:userId', favoriteController.getFavoritesByUserId);
 router.post('/create', favoriteController.create);
-router.delete('/delete/:id', favoriteController.exclude);
+router.delete('/delete/', favoriteController.exclude);
 
 export default router;
