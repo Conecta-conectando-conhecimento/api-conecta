@@ -8,8 +8,64 @@
     ],
     "routes": [
         {
-            "src": "/",
-            "dest": "public/server.js"
+            "src": "/api/auth/login",
+            "dest": "./routes/auth.js"
+        },
+        {
+            "src": "/api/auth/register",
+            "dest": "./routes/auth.js"
+        },
+        {
+            "src": "/api/auth/forgot-password",
+            "dest": "./routes/auth.js"
+        },
+        {
+            "src": "/api/auth/reset-password",
+            "dest": "./routes/auth.js"
+        },
+        {
+            "src": "/api/user/all",
+            "dest": "./routes/user.js"
+        },
+        {
+            "src": "/api/user/name/:name",
+            "dest": "./routes/user.js"
+        },
+        {
+            "src": "/api/user/:id",
+            "dest": "./routes/user.js"
+        },
+        {
+            "src": "/api/user/:email",
+            "dest": "./routes/user.js"
+        },
+        {
+            "src": "/api/user/update/:id",
+            "dest": "./routes/user.js"
+        },
+        {
+            "src": "/api/user/delete/:id",
+            "dest": "./routes/user.js"
+        },
+        {
+            "src": "/api/project/all",
+            "dest": "./routes/project.js"
+        },
+        {
+            "src": "/api/project/:id",
+            "dest": "./routes/project.js"
+        },
+        {
+            "src": "/api/project/create",
+            "dest": "./routes/project.js"
+        },
+        {
+            "src": "/api/project/update/:id",
+            "dest": "./routes/project.js"
+        },
+        {
+            "src": "/api/project/delete/:id",
+            "dest": "./routes/project.js"
         }
     ]
 }
