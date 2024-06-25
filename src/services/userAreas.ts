@@ -1,6 +1,6 @@
 import { APIResponse, ErrorTypes, ResponseOn } from '../config/utils/response';
-import { UserAreasEntity } from '../entities/UserAreas';
-import { UserAreasRepository } from '../repositories/UserAreas';
+import { UserAreasEntity } from '../entities/userAreas';
+import { UserAreasRepository } from '../repositories/userAreas';
 
 const response = new ResponseOn();
 const userAreaRepository = new UserAreasRepository();

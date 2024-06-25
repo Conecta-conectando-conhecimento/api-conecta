@@ -1,5 +1,5 @@
 import { AppDataSource } from '../database/connection';
-import { UserAreasEntity } from '../entities/UserAreas';
+import { UserAreasEntity } from '../entities/userAreas';
 
 const userAreasRepository = AppDataSource.getRepository(UserAreasEntity);
 
