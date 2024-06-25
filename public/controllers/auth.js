@@ -24,5 +24,10 @@ class AuthController {
         const { codehttp, ...rest } = await authService.resetPassword(token);
         return res.status(codehttp).json(rest);
     }
+    async newPassword(req, res) {
+        const { email, newPassword } = req.body;
+        const { codehttp, ...rest } = await authService.newPassword(email, newPassword);
+        return res.status(codehttp).json(rest);
+    }
 }
 exports.AuthController = AuthController;

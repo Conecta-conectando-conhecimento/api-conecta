@@ -113,5 +113,25 @@ class AuthService {
             }
         };
     }
+    async newPassword(email, newPassword) {
+        try {
+            if (!email || !newPassword) {
+                return response.error('O email e a nova senha são obrigatórios', 400);
+            }
+            const user = await userRepository.getByEmail(email);
+            if (!user) {
+                return response.error('Usuário não encontrado', 404);
+            }
+            // Hash da nova senha
+            const salt = bcryptjs_1.default.genSaltSync(10);
+            const hashedPassword = bcryptjs_1.default.hashSync(newPassword, salt);
+            // Atualizar a senha do usuário no banco de dados
+            await userRepository.updatePassword(user.id, hashedPassword);
+            return response.success('Senha alterada com sucesso', 200);
+        }
+        catch (error) {
+            return response.error(error);
+        }
+    }
 }
 exports.AuthService = AuthService;
