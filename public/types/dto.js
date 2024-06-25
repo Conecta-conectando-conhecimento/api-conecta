@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateProjectFileDTO = exports.CreateProjectFileDTO = exports.UpdateParticipantDTO = exports.CreateParticipantDTO = void 0;
+exports.CreateUserAreaDTO = exports.UpdateProjectFileDTO = exports.CreateProjectFileDTO = exports.UpdateParticipantDTO = exports.CreateParticipantDTO = void 0;
 class CreateParticipantDTO {
 }
 exports.CreateParticipantDTO = CreateParticipantDTO;
@@ -15,3 +15,6 @@ exports.CreateProjectFileDTO = CreateProjectFileDTO;
 class UpdateProjectFileDTO {
 }
 exports.UpdateProjectFileDTO = UpdateProjectFileDTO;
+class CreateUserAreaDTO {
+}
+exports.CreateUserAreaDTO = CreateUserAreaDTO;
