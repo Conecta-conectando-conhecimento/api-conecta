@@ -28,8 +28,14 @@ export class ParticipantRepository {
     };
 
     create = async (createParticipantDTO: CreateParticipantDTO): Promise<void> => {
-        await participantRepository.insert(createParticipantDTO);
+        try {
+            await participantRepository.insert(createParticipantDTO);
+        } catch (error) {
+            console.error('Erro ao criar participante:', error);
+            throw new Error('Erro ao criar participante.');
+        }
     };
+    
 
     update = async (id: number, updateParticipantDTO: UpdateParticipantDTO): Promise<void> => {
         await participantRepository.update({ id }, updateParticipantDTO);
