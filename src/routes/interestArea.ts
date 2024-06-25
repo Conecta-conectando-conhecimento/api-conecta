@@ -7,4 +7,5 @@ const interestAreaController = new InterestAreaController();
 router.get('/all', interestAreaController.getAll);
 
 
+
 export default router;
