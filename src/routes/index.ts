@@ -8,6 +8,8 @@ import FavoriteRouter from './favorites';
 import ParticipantRouter from './participants';
 import ParticipantViewRoutes from './participantView'
 import ProjectFilesRouter from './projectFiles'
+import InterestAreaRouter from './interestArea'
+import UserAreasRouter from './userAreas'
 
 const router = Router();
 
@@ -20,5 +22,7 @@ router.use('/favorite', FavoriteRouter);
 router.use('/participants', ParticipantRouter);
 router.use('/participant-view', ParticipantViewRoutes);
 router.use('/projectfiles', ProjectFilesRouter)
+router.use('/interestArea', InterestAreaRouter)
+router.use('/userAreas', UserAreasRouter)
 
 export default router;

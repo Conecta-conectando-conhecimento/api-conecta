@@ -79,4 +79,8 @@ export class UpdateProjectFileDTO {
     file_url?: string;
 }
 
+export class CreateUserAreaDTO{
+    user_id: number;
+    area_id: number;
+}
 
