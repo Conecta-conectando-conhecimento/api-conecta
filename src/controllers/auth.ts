@@ -2,10 +2,21 @@ import { AuthService } from '../services/auth';
 
 const authService = new AuthService();
 
+interface NewPasswordRequestBody {
+    email: string;
+    newPassword: string;
+}
+
 export class AuthController {
     async login(req, res) {
         const { email, password } = req.body;
         const { codehttp, ...rest } = await authService.login(email, password);
+        return res.status(codehttp).json(rest);
+    }
+
+    async newPassword(req, res) {
+        const { email, newPassword } = req.body;
+        const { codehttp, ...rest } = await authService.newPassword(email, newPassword);
         return res.status(codehttp).json(rest);
     }
 
@@ -26,4 +37,6 @@ export class AuthController {
         const { codehttp, ...rest } = await authService.resetPassword(token);
         return res.status(codehttp).json(rest);
     }
+
+    
 }

@@ -9,6 +9,11 @@ class AuthController {
         const { codehttp, ...rest } = await authService.login(email, password);
         return res.status(codehttp).json(rest);
     }
+    async newPassword(req, res) {
+        const { email, newPassword } = req.body;
+        const { codehttp, ...rest } = await authService.newPassword(email, newPassword);
+        return res.status(codehttp).json(rest);
+    }
     async register(req, res) {
         const { email, cpf, name, user_name, birthday, password } = req.body;
         const { codehttp, ...rest } = await authService.register(email, cpf, name, user_name, birthday, password);
