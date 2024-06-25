@@ -21,7 +21,23 @@ class ProjectRepository {
             return await projectRepository.findOne({ where: { title } });
         };
         this.create = async (createProjectDTO) => {
-            await projectRepository.insert(createProjectDTO);
+            try {
+                // Cria uma nova instância do projeto
+                const newProject = projectRepository.create(createProjectDTO);
+                // Salva o projeto no banco de dados
+                const savedProject = await projectRepository.save(newProject);
+                if (savedProject && savedProject.id) {
+                    return savedProject.id;
+                }
+                else {
+                    console.error('Falha ao salvar o projeto. ID não encontrado.');
+                    return undefined;
+                }
+            }
+            catch (error) {
+                console.error('Erro ao criar projeto:', error);
+                throw new Error('Erro ao criar projeto.');
+            }
         };
         this.update = async (id, updateProjectDTO) => {
             await projectRepository.update({ id }, updateProjectDTO);

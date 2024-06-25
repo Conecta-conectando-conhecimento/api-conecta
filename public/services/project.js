@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectService = void 0;
 const response_1 = require("../config/utils/response");
+const participants_1 = require("../repositories/participants");
 const project_1 = require("../repositories/project");
 const response = new response_1.ResponseOn();
 const projectRepository = new project_1.ProjectRepository();
+const participantRepository = new participants_1.ParticipantRepository();
 class ProjectService {
     constructor() {
         this.getAll = async (page, limit) => {
@@ -54,14 +56,28 @@ class ProjectService {
         };
         this.create = async (createProjectDTO) => {
             try {
-                const { title, about, max_participants, activities } = createProjectDTO;
-                if (!title || !about || !max_participants) {
-                    return response.error('Os campos título, descrição, número máximo de participantes e área de interesse são obrigatórios', 400);
+                const { title, introduction, max_participants, user_id } = createProjectDTO;
+                // Verificação básica de campos obrigatórios
+                if (!title || !introduction || !max_participants || !user_id) {
+                    return response.error('Os campos título, descrição, número máximo de participantes e user_id são obrigatórios', 400);
                 }
-                await projectRepository.create(createProjectDTO);
-                return response.success('Projeto foi criado com sucesso', 201);
+                // Tentar criar o projeto e obter o ID
+                const project_id = await projectRepository.create(createProjectDTO);
+                if (!project_id) {
+                    return response.error('Falha ao criar o projeto. ID do projeto não foi retornado.', 500);
+                }
+                // Criar o participante associado ao projeto
+                const createParticipantDto = {
+                    project_id: project_id,
+                    user_id: createProjectDTO.user_id,
+                    is_admin: true
+                };
+                await participantRepository.create(createParticipantDto);
+                // Retornar o ID do projeto no objeto de resposta
+                return response.success("Sucesso ao criar projeto e participante", 201);
             }
             catch (error) {
+                console.error('Erro ao criar projeto no serviço:', error);
                 return response.error(error, 500);
             }
         };

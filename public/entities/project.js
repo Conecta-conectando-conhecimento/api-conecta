@@ -16,7 +16,7 @@ let ProjectEntity = class ProjectEntity {
 };
 exports.ProjectEntity = ProjectEntity;
 __decorate([
-    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], ProjectEntity.prototype, "id", void 0);
 __decorate([
@@ -24,7 +24,7 @@ __decorate([
     __metadata("design:type", String)
 ], ProjectEntity.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], ProjectEntity.prototype, "about", void 0);
 __decorate([
@@ -35,10 +35,6 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], ProjectEntity.prototype, "max_participants", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], ProjectEntity.prototype, "activities", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)

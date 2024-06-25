@@ -23,7 +23,13 @@ class ParticipantRepository {
             await participantRepository.update(participantId, { deleted_at: null });
         };
         this.create = async (createParticipantDTO) => {
-            await participantRepository.insert(createParticipantDTO);
+            try {
+                await participantRepository.insert(createParticipantDTO);
+            }
+            catch (error) {
+                console.error('Erro ao criar participante:', error);
+                throw new Error('Erro ao criar participante.');
+            }
         };
         this.update = async (id, updateParticipantDTO) => {
             await participantRepository.update({ id }, updateParticipantDTO);
