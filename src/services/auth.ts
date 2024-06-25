@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+
 import { APIResponse, ErrorTypes, ResponseOn } from '../config/utils/response';
 import { UserRepository } from '../repositories/user';
 import { ILoginResponse, IResetPasswordToken } from '../types/interface';
@@ -147,4 +148,29 @@ export class AuthService {
             return response.error(error);
         }
     };
+
+    async newPassword(email: string, newPassword: string) {
+        try {
+            if (!email || !newPassword) {
+                return response.error('O email e a nova senha são obrigatórios', 400);
+            }
+
+            const user = await userRepository.getByEmail(email);
+
+            if (!user) {
+                return response.error('Usuário não encontrado', 404);
+            }
+
+            // Hash da nova senha
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(newPassword, salt);
+
+            // Atualizar a senha do usuário no banco de dados
+            await userRepository.updatePassword(user.id, hashedPassword);
+
+            return response.success('Senha alterada com sucesso', 200);
+        } catch (error) {
+            return response.error(error);
+        }
+    }
 }
