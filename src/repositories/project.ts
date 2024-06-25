@@ -1,9 +1,12 @@
 import { Repository } from 'typeorm';
 import { AppDataSource } from '../database/connection';
 import { ProjectEntity } from '../entities/project';
-import { CreateProjectDTO, UpdateProjectDTO } from '../types/dto';
+import { CreateParticipantDTO, CreateProjectDTO, UpdateProjectDTO } from '../types/dto';
+import { ParticipantRepository } from '../repositories/participants';
 
 const projectRepository = AppDataSource.getRepository(ProjectEntity);
+
+
 
 export class ProjectRepository {
     getAll = async (page?: number, limit?: number): Promise<ProjectEntity[]> => {
@@ -24,23 +27,17 @@ export class ProjectRepository {
         return await projectRepository.findOne({ where: { title } });
     };
 
-    private repository: Repository<ProjectEntity>;
 
-    constructor() {
-        this.repository = AppDataSource.getRepository(ProjectEntity);
-    }
-
-    create = async (createProjectDTO: CreateProjectDTO): Promise<string | undefined> => {
+    create = async (createProjectDTO: CreateProjectDTO): Promise<number | undefined> => {
         try {
             // Cria uma nova instância do projeto
-            const newProject = this.repository.create(createProjectDTO);
-            
+            const newProject = projectRepository.create(createProjectDTO);
+    
             // Salva o projeto no banco de dados
-            const savedProject = await this.repository.save(newProject);
-
-            // Verifica se o ID foi gerado e retorna como string
+            const savedProject = await projectRepository.save(newProject);
+    
             if (savedProject && savedProject.id) {
-                return savedProject.id.toString();
+                return savedProject.id;
             } else {
                 console.error('Falha ao salvar o projeto. ID não encontrado.');
                 return undefined;
@@ -50,6 +47,7 @@ export class ProjectRepository {
             throw new Error('Erro ao criar projeto.');
         }
     };
+    
 
 
     update = async (id: number, updateProjectDTO: UpdateProjectDTO): Promise<void> => {

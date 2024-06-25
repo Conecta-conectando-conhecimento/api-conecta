@@ -29,6 +29,7 @@ export interface UpdateUserDTO {
 }
 
 export type CreateProjectDTO = {
+    id?: number;
     title: string;
     about?: string;
     introduction: string;
