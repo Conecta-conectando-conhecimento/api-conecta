@@ -30,11 +30,12 @@ export interface UpdateUserDTO {
 
 export type CreateProjectDTO = {
     title: string;
-    about: string;
+    about?: string;
+    introduction: string;
     max_participants: number;
     activities?: string;
     created_by: number;
-    likes?: number;
+    user_id: number;
 }
 
 
