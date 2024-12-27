@@ -14,6 +14,10 @@
 
 Essa API é um projeto de graduação no CEUB de Análise e Desenvolvimento de Sistemas para o Projeto Integrador. Ela foi desenvolvida com o intuito de praticar conhecimentos adquiridos no decorrer do curso. Essa API fornece os serviços para o [App Conecta]([Conecta-conectando-conhecimento/api-conecta](https://github.com/Conecta-conectando-conhecimento/app-conecta)).
 
+# Design do projeto
+
+Figma - https://www.figma.com/file/sZG8sKZuKlsu7XaygbmzqP/Pronect?type=design&t=2wERyAOl0VwTIK0o-1
+
 ## 🛠 Conhecimentos Aplicados
 
 - NODE JS + Express
